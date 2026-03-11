@@ -983,9 +983,9 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
       Based in Bangalore. Open to relocation — Kuala Lumpur, Malaysia.
     </p>
     <div class="contact-links">
-      <a href="mailto:charan.s.prasad@gmail.com" onclick="copyEmail(event)" class="contact-link primary" id="email-btn">
+      <button onclick="copyEmail()" class="contact-link primary" style="border:none;cursor:pointer;">
         ✉ charan.s.prasad@gmail.com
-      </a>
+      </button>
       <div id="email-toast" style="display:none;position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;border:1px solid #333;z-index:9999;letter-spacing:0.3px;">
         ✓ Email copied to clipboard
       </div>
@@ -1007,8 +1007,7 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
 
 <script>
 // Copy email
-function copyEmail(e) {
-  e.preventDefault();
+function copyEmail() {
   navigator.clipboard.writeText('charan.s.prasad@gmail.com').then(() => {
     const toast = document.getElementById('email-toast');
     toast.style.display = 'block';
