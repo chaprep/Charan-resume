@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charan Shyam Prasad — AI Creative Systems Builder</title>
+<style>
+:root {
+  --bg: #070708;
+  --surface: #0e0e10;
+  --surface2: #141416;
+  --border: #1e1e22;
+  --border2: #2a2a2f;
+  --accent: #7c3aed;
+  --accent-light: #a78bfa;
+  --accent-dim: rgba(124,58,237,0.15);
+  --pink: #ec4899;
+  --teal: #2dd4bf;
+  --text: #f0f0f2;
+  --muted: #888;
+  --dim: #444;
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 48px;
+  background: rgba(7,7,8,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.nav-name {
+  font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+  color: var(--text);
+}
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  font-size: 13px; color: var(--muted); text-decoration: none;
+  letter-spacing: 0.3px; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
+  padding: 8px 18px; border-radius: 6px;
+  background: var(--accent); color: #fff; text-decoration: none;
+  transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.85; }
+.nav-resume {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
+  padding: 8px 18px; border-radius: 6px;
+  background: transparent; color: var(--accent-light);
+  text-decoration: none; border: 1px solid var(--accent);
+  transition: opacity 0.2s;
+}
+.nav-resume:hover { opacity: 0.75; }
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px 48px 80px;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 40%, rgba(124,58,237,0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(45,212,191,0.06) 0%, transparent 60%);
+}
+.hero-grid {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0.03;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--accent-light); margin-bottom: 28px;
+}
+.hero-tag::before {
+  content: ''; width: 24px; height: 1px; background: var(--accent-light);
+}
+.hero-headline {
+  font-size: clamp(38px, 5.5vw, 72px);
+  font-weight: 800; line-height: 1.08; letter-spacing: -1.5px;
+  max-width: 860px; margin-bottom: 28px;
+}
+.hero-headline .line-dim { color: var(--muted); font-weight: 300; }
+.hero-headline .accent { color: var(--accent-light); }
+.hero-sub {
+  font-size: 17px; color: var(--muted); max-width: 560px;
+  margin-bottom: 48px; line-height: 1.65;
+}
+.hero-stats {
+  display: flex; gap: 48px; flex-wrap: wrap;
+}
+.stat {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.stat-num {
+  font-size: 28px; font-weight: 800; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--accent-light), var(--pink));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.stat-label { font-size: 12px; color: var(--muted); letter-spacing: 0.3px; }
+
+/* ─── SECTION BASE ─── */
+section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
+.section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent-light); margin-bottom: 16px;
+}
+.section-heading {
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 800; letter-spacing: -0.8px; margin-bottom: 12px;
+}
+.section-sub {
+  font-size: 15px; color: var(--muted); max-width: 540px; margin-bottom: 56px;
+  line-height: 1.65;
+}
+
+/* ─── CAPABILITIES ─── */
+.caps-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--border); border-radius: var(--radius); overflow: hidden;
+}
+.cap-card {
+  background: var(--surface); padding: 36px 32px;
+  transition: background 0.2s;
+}
+.cap-card:hover { background: var(--surface2); }
+.cap-icon {
+  width: 44px; height: 44px; border-radius: 10px; margin-bottom: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.cap-icon.purple { background: rgba(124,58,237,0.15); }
+.cap-icon.pink { background: rgba(236,72,153,0.12); }
+.cap-icon.teal { background: rgba(45,212,191,0.12); }
+.cap-title { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+.cap-desc { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+
+/* ─── CREATIVE GALLERY ─── */
+#gallery { max-width: 100%; padding: 100px 48px; }
+.gallery-inner { max-width: 1200px; margin: 0 auto; }
+.tab-bar {
+  display: flex; gap: 4px; margin-bottom: 36px;
+  background: var(--surface); border-radius: 8px; padding: 4px;
+  width: fit-content;
+}
+.tab-btn {
+  padding: 8px 20px; border-radius: 6px; border: none; cursor: pointer;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.3px;
+  background: transparent; color: var(--muted);
+  transition: all 0.2s;
+}
+.tab-btn.active { background: var(--accent); color: #fff; }
+.tab-btn:hover:not(.active) { color: var(--text); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+.gallery-grid.col-2 { grid-template-columns: repeat(2, 1fr); }
+.gal-item {
+  position: relative; overflow: hidden; border-radius: 8px;
+  aspect-ratio: 3/4; cursor: pointer;
+  background: var(--surface);
+}
+.gal-item.wide { aspect-ratio: 1/1; }
+.gal-item.landscape { aspect-ratio: 4/3; grid-column: span 2; }
+.gal-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s ease, filter 0.3s ease;
+  filter: brightness(0.92);
+}
+.gal-item:hover img { transform: scale(1.04); filter: brightness(1); }
+.gal-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+  opacity: 0; transition: opacity 0.3s; pointer-events: none;
+  display: flex; align-items: flex-end; padding: 16px;
+}
+.gal-item:hover .gal-overlay { opacity: 1; }
+.gal-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
+  padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.15);
+}
+.gallery-caption {
+  font-size: 13px; color: var(--muted); margin-top: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.gallery-caption::before {
+  content: ''; display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--teal); flex-shrink: 0;
+}
+
+/* ─── PROJECTS ─── */
+.projects-grid { display: flex; flex-direction: column; gap: 2px; }
+.project-card {
+  background: var(--surface); border-radius: var(--radius);
+  overflow: hidden; border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+.project-card:hover { border-color: var(--border2); }
+.project-header {
+  padding: 36px 40px 28px;
+  display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: start;
+}
+.project-badge {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 4px; margin-bottom: 14px; display: inline-block;
+}
+.badge-live { background: rgba(45,212,191,0.12); color: var(--teal); }
+.badge-deployed { background: rgba(124,58,237,0.12); color: var(--accent-light); }
+.badge-personal { background: rgba(236,72,153,0.1); color: var(--pink); }
+.project-name { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+.project-desc { font-size: 14px; color: var(--muted); line-height: 1.65; max-width: 580px; }
+.project-metric-box { text-align: right; }
+.project-metric-num {
+  font-size: 32px; font-weight: 800; line-height: 1;
+  background: linear-gradient(135deg, var(--accent-light), var(--pink));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.project-metric-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.project-body {
+  border-top: 1px solid var(--border);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+}
+.project-body-col { padding: 28px 40px; }
+.project-body-col:first-child { border-right: 1px solid var(--border); }
+.body-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 14px;
+}
+.body-items { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.body-items li {
+  font-size: 13.5px; color: var(--muted); display: flex; align-items: flex-start; gap: 10px;
+  line-height: 1.5;
+}
+.body-items li::before {
+  content: '→'; color: var(--accent-light); flex-shrink: 0; margin-top: 1px;
+  font-size: 12px;
+}
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.tag {
+  font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 4px;
+  letter-spacing: 0.3px;
+}
+.tag-purple { background: var(--accent-dim); color: var(--accent-light); }
+.tag-teal { background: rgba(45,212,191,0.08); color: var(--teal); }
+.tag-pink { background: rgba(236,72,153,0.08); color: var(--pink); }
+.tag-grey { background: rgba(255,255,255,0.05); color: var(--muted); }
+
+/* ─── COMFYUI WORKFLOWS ─── */
+.workflow-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+  margin-top: 8px;
+}
+.workflow-node {
+  background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: 8px; padding: 12px 10px; text-align: center;
+}
+.wf-num {
+  font-size: 10px; font-weight: 700; color: var(--accent-light);
+  letter-spacing: 1px; margin-bottom: 6px; display: block;
+}
+.wf-name { font-size: 11px; color: var(--text); font-weight: 600; line-height: 1.3; }
+.wf-sub { font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+/* ─── TECH STACK ─── */
+.stack-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.stack-group {}
+.stack-group-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 12px;
+}
+.stack-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.stack-tag {
+  font-size: 12px; font-weight: 500;
+  padding: 6px 12px; border-radius: 6px;
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text); letter-spacing: 0.2px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.stack-tag:hover { border-color: var(--accent); color: var(--accent-light); }
+
+/* ─── TIMELINE ─── */
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before {
+  content: ''; position: absolute; left: 0; top: 8px; bottom: 8px;
+  width: 1px; background: var(--border);
+}
+.tl-item { position: relative; padding-bottom: 40px; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-dot {
+  position: absolute; left: -34px; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--bg);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+.tl-dot.dim { background: var(--border2); box-shadow: none; }
+.tl-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+.tl-company { font-size: 16px; font-weight: 700; }
+.tl-role { font-size: 13px; color: var(--muted); }
+.tl-date {
+  font-size: 11px; color: var(--dim); font-family: monospace;
+  margin-left: auto; white-space: nowrap;
+}
+.tl-bullets { list-style: none; margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+.tl-bullets li { font-size: 13.5px; color: var(--muted); display: flex; gap: 10px; line-height: 1.5; }
+.tl-bullets li::before { content: '·'; color: var(--accent-light); flex-shrink: 0; }
+
+/* ─── CONTACT / FOOTER ─── */
+#contact {
+  border-top: 1px solid var(--border);
+  padding: 80px 48px;
+  text-align: center;
+}
+.contact-inner { max-width: 600px; margin: 0 auto; }
+.contact-heading {
+  font-size: clamp(28px, 3vw, 44px); font-weight: 800;
+  letter-spacing: -0.8px; margin-bottom: 16px;
+}
+.contact-sub { font-size: 15px; color: var(--muted); margin-bottom: 40px; }
+.contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.contact-link {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 24px; border-radius: 8px; text-decoration: none;
+  font-size: 14px; font-weight: 600; transition: all 0.2s;
+}
+.contact-link.primary {
+  background: var(--accent); color: #fff;
+}
+.contact-link.primary:hover { background: #6d28d9; }
+.contact-link.secondary {
+  background: var(--surface); border: 1px solid var(--border2); color: var(--text);
+}
+.contact-link.secondary:hover { border-color: var(--accent-light); color: var(--accent-light); }
+.footer-note {
+  font-size: 12px; color: var(--dim); margin-top: 56px;
+}
+
+/* ─── LIGHTBOX ─── */
+.lightbox {
+  display: none; position: fixed; inset: 0; z-index: 999;
+  background: rgba(0,0,0,0.95); backdrop-filter: blur(8px);
+  align-items: center; justify-content: center;
+}
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-width: 90vw; max-height: 90vh; object-fit: contain;
+  border-radius: 8px;
+}
+.lightbox-close {
+  position: absolute; top: 24px; right: 32px;
+  background: none; border: none; color: var(--muted); cursor: pointer;
+  font-size: 28px; line-height: 1; transition: color 0.2s;
+}
+.lightbox-close:hover { color: var(--text); }
+
+/* ─── FADE IN ANIMATION ─── */
+.fade-up {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  section { padding: 70px 24px; }
+  #hero { padding: 100px 24px 60px; }
+  #gallery { padding: 70px 24px; }
+  #contact { padding: 60px 24px; }
+  .caps-grid { grid-template-columns: 1fr; }
+  .project-header { grid-template-columns: 1fr; }
+  .project-metric-box { text-align: left; }
+  .project-body { grid-template-columns: 1fr; }
+  .project-body-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+  .workflow-grid { grid-template-columns: repeat(3, 1fr); }
+  .stack-groups { grid-template-columns: 1fr 1fr; }
+  .hero-stats { gap: 28px; }
+  .gallery-grid.col-2 { grid-template-columns: 1fr; }
+  .gal-item.landscape { grid-column: span 1; aspect-ratio: 3/4; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <span class="nav-name">Charan Shyam Prasad</span>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#creative">Creative</a>
+    <a href="#projects">Projects</a>
+    <a href="#stack">Stack</a>
+    <a href="#experience">Experience</a>
+  </div>
+  <a href="./resume_airasia.html" class="nav-resume">Resume</a>
+  <a href="mailto:charan.s.prasad@gmail.com" class="nav-cta">Get in touch</a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero" style="max-width:100%;padding-left:48px;padding-right:48px;">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div style="position:relative;z-index:1;max-width:1200px;margin:0 auto;">
+    <div class="hero-tag">AI Creative Systems Builder</div>
+    <h1 class="hero-headline">
+      I build the systems<br>
+      <span class="line-dim">that make creativity</span><br>
+      <span class="accent">scale.</span>
+    </h1>
+    <p class="hero-sub">
+      ComfyUI pipelines. Multi-stage AI generation. Internal tools that non-technical teams
+      actually use. I sit at the intersection of AI engineering and creative production —
+      and I've already shipped it in production.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">5</span>
+        <span class="stat-label">ComfyUI Workflows Built</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">Live</span>
+        <span class="stat-label">Ad Gen Workflow in ShopOS Pro</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3×</span>
+        <span class="stat-label">AI Pipeline Stages, Zebotech</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">7k+</span>
+        <span class="stat-label">Lines — Algo Trading System</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CAPABILITIES ─── -->
+<section id="work" class="fade-up">
+  <div class="section-label">What I Build</div>
+  <h2 class="section-heading">Three things, done well.</h2>
+  <p class="section-sub">Not just tools — production systems. Built from scratch, deployed for real users, measurable outcomes.</p>
+  <div class="caps-grid">
+    <div class="cap-card">
+      <div class="cap-icon purple">⚙️</div>
+      <div class="cap-title">AI Creative Pipelines</div>
+      <div class="cap-desc">
+        Multi-stage generation pipelines that go from input to production-ready creative — text, image, video.
+        ComfyUI workflows with ControlNet, IC-Light, IP-Adapter, LoRA. Versioned prompts. Fallback models.
+        Output designers would actually want to use.
+      </div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon pink">🛠️</div>
+      <div class="cap-title">Internal Tools & Automation</div>
+      <div class="cap-desc">
+        Full-stack internal tools that let non-technical teams run complex AI workflows without engineering support.
+        FastAPI + Next.js backends, task queues, VPS deployment, Docker. Built and maintained by one person.
+      </div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon teal">🎨</div>
+      <div class="cap-title">Campaign-Grade AI Creative</div>
+      <div class="cap-desc">
+        Not just prompting — understanding lighting, composition, model selection, and what makes creative
+        perform. Fashion editorials, product advertising, luxury campaigns, streetwear. Nano Banana, Kling,
+        Veo3, Wan2.2, and more.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CREATIVE GALLERY ─── -->
+<div id="creative" style="padding:100px 0;">
+  <div class="gallery-inner" style="max-width:1200px;margin:0 auto;padding:0 48px;">
+    <div class="fade-up">
+      <div class="section-label">AI Creative Output</div>
+      <h2 class="section-heading">Campaign-quality. Zero photography.</h2>
+      <p class="section-sub">Three distinct campaigns, three different visual languages. All generated with AI — Nano Banana Pro & 2.</p>
+    </div>
+    <div class="tab-bar fade-up">
+      <button class="tab-btn active" onclick="showTab('street')">Street Culture</button>
+      <button class="tab-btn" onclick="showTab('denim')">The Denim Edit</button>
+      <button class="tab-btn" onclick="showTab('luxury')">Luxury Goods</button>
+    </div>
+
+    <div id="tab-street" class="tab-panel active fade-up">
+      <div class="gallery-grid" style="grid-template-columns:repeat(3,1fr);">
+        <div class="gal-item" onclick="openLightbox(this)">
+          <img src="hf_20260310_150442_5734d738-a33a-48cc-a9b7-0ecf67d3549e%20(1).jpeg" alt="Street Culture — Standing" loading="lazy">
+          <div class="gal-overlay"><span class="gal-tag">Street Culture</span></div>
+        </div>
+        <div class="gal-item" onclick="openLightbox(this)">
+          <img src="hf_20260310_150709_0f05b417-20ac-4bf1-914b-dbe0c5ea13f3.jpeg" alt="Street Culture — Walking" loading="lazy">
+          <div class="gal-overlay"><span class="gal-tag">Street Culture</span></div>
+        </div>
+        <div class="gal-item" onclick="openLightbox(this)">
+          <img src="hf_20260310_150734_899c2427-f300-4bc2-ba77-ea9d9712a0ba.jpeg" alt="Street Culture" loading="lazy">
+          <div class="gal-overlay"><span class="gal-tag">Street Culture</span></div>
+        </div>
+        <div class="gal-item" onclick="openLightbox(this)">
+          <img src="hf_20260310_150752_11b327d1-dfb6-44fd-b09a-29b36f87e654.jpeg" alt="Street Culture" loading="lazy">
+          <div class="gal-overlay"><span class="gal-tag">Street Culture</span></div>
+        </div>
+        <div class="gal-item" onclick="openLightbox(this)">
+          <img src="hf_20260310_150956_d3ae22c5-eede-4441-a9f2-6db39603652b.jpeg" alt="Street Culture" loading="lazy">
+          <div class="gal-overlay"><span class="gal-tag">Street Culture</span></div>
+        </div>
+      </div>
+      <p class="gallery-caption">Urban editorial campaign for sports &amp; streetwear. Night-lit alley setting, authentic street energy — generated with Nano Banana Pro.</p>
+    </div>
+
+    <div id="tab-denim" class="tab-panel fade-up">
+      <div class="gallery-grid" style="grid-template-columns:repeat(3,1fr);">
+        <div class="gal-item" onclick="openLightbox(this)">
+          <img src="hf_20260310_152616_687b71ba-d4d8-4fcb-86cb-e7f3984a469e.jpeg" alt="Denim Edit" loading="lazy">
+          <div class="gal-overlay"><span class="gal-tag">The Denim Edit</span></div>
+        </div>
+        <div class="gal-item" onclick="openLightbox(this)">
+          <img src="hf_20260310_152637_add47887-8a10-4e5f-96a3-2d878bc8ae2d.jpeg" alt="Denim Edit" loading="lazy">
+          <div class="gal-overlay"><span class="gal-tag">The Denim Edit</span></div>
+        </div>
+        <div class="gal-item" onclick="openLightbox(this)">
+          <img src="hf_20260310_152656_bd267f82-e713-4a6d-8356-dc05ac797081.jpeg" alt="Denim Edit" loading="lazy">
+          <div class="gal-overlay"><span class="gal-tag">The Denim Edit</span></div>
+        </div>
+        <div class="gal-item" onclick="openLightbox(this)">
+          <img src="hf_20260310_152746_e2f9a818-a2b9-4592-b649-796221ed31e9.jpeg" alt="Denim Edit" loading="lazy">
+          <div class="gal-overlay"><span class="gal-tag">The Denim Edit</span></div>
+        </div>
+        <div class="gal-item" onclick="openLightbox(this)">
+          <img src="hf_20260310_152836_d9827718-28d2-4ab2-ba59-e9e301891db5.jpeg" alt="Denim Edit" loading="lazy">
+          <div class="gal-overlay"><span class="gal-tag">The Denim Edit</span></div>
+        </div>
+      </div>
+      <p class="gallery-caption">High fashion editorial for apparel &amp; denim brands. Studio-controlled lighting, minimalist aesthetic — generated with Nano Banana 2.</p>
+    </div>
+
+    <div id="tab-luxury" class="tab-panel fade-up">
+      <div class="gallery-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="gal-item wide" onclick="openLightbox(this)">
+          <img src="hf_20260310_153322_22d4aabb-9580-4f37-9c8c-d0802aaa9f98.jpeg" alt="Luxury" loading="lazy" style="object-position:top;">
+          <div class="gal-overlay"><span class="gal-tag">Luxury Goods</span></div>
+        </div>
+        <div class="gal-item wide" onclick="openLightbox(this)">
+          <img src="hf_20260310_160826_a15064f0-6149-4dc2-acb8-007a651f041c.jpeg" alt="Ralph Lauren Polo Red — Underwater" loading="lazy">
+          <div class="gal-overlay"><span class="gal-tag">Ralph Lauren · Underwater</span></div>
+        </div>
+        <div class="gal-item landscape" onclick="openLightbox(this)" style="grid-column:span 2;aspect-ratio:16/9;">
+          <img src="hf_20260310_181832_9e5c5730-64fb-4c9f-8748-257e1dc8b3ae%20(1).png" alt="Montblanc Starwalker — Full Ad" loading="lazy">
+          <div class="gal-overlay"><span class="gal-tag">Montblanc Starwalker · Full Ad</span></div>
+        </div>
+      </div>
+      <p class="gallery-caption">Product advertising for luxury fragrance. Underwater cinematics (Ralph Lauren), neon/graffiti campaign concept (Montblanc) — generated with Nano Banana Pro.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PROJECTS ─── -->
+<section id="projects">
+  <div class="fade-up">
+    <div class="section-label">Systems Built</div>
+    <h2 class="section-heading">Not demos. Production.</h2>
+    <p class="section-sub">Three systems, all deployed, all in active use. Built solo, end to end.</p>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- ShopOS -->
+    <div class="project-card fade-up">
+      <div class="project-header">
+        <div>
+          <span class="project-badge badge-live">Live in Production · ShopOS Pro</span>
+          <div class="project-name">AI Marketing Ad Gen Workflow</div>
+          <p class="project-desc">
+            Brand uploads a product. The system outputs production-ready ad creatives — no designer required,
+            no manual pipeline steps. Built with Python and Nano Banana. Selected for the role itself via a
+            separate rigorous ComfyUI technical assessment (5 workflows, all documented).
+          </p>
+        </div>
+        <div class="project-metric-box">
+          <div class="project-metric-num">5</div>
+          <div class="project-metric-label">distinct workflows<br>designed & deployed</div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-body-col">
+          <div class="body-label">ComfyUI Workflow Architecture</div>
+          <div class="workflow-grid">
+            <div class="workflow-node">
+              <span class="wf-num">WF 1</span>
+              <div class="wf-name">ControlNet Canny</div>
+              <div class="wf-sub">Shape & edge preservation</div>
+            </div>
+            <div class="workflow-node">
+              <span class="wf-num">WF 2</span>
+              <div class="wf-name">IC-Light</div>
+              <div class="wf-sub">Photorealistic lighting</div>
+            </div>
+            <div class="workflow-node">
+              <span class="wf-num">WF 3</span>
+              <div class="wf-name">IP-Adapter</div>
+              <div class="wf-sub">Guided stylization</div>
+            </div>
+            <div class="workflow-node">
+              <span class="wf-num">WF 4</span>
+              <div class="wf-name">DINO + SAM</div>
+              <div class="wf-sub">Product segmentation</div>
+            </div>
+            <div class="workflow-node" style="border-color:var(--accent);background:var(--accent-dim);">
+              <span class="wf-num" style="color:#fff;">WF 5</span>
+              <div class="wf-name" style="color:#fff;">Full Pipeline</div>
+              <div class="wf-sub">All combined</div>
+            </div>
+          </div>
+        </div>
+        <div class="project-body-col">
+          <div class="body-label">Also at ShopOS</div>
+          <ul class="body-items">
+            <li>RAG system for CRM team — 40% improvement in response accuracy</li>
+            <li>n8n + Python workflow automation — saved 25–40 hrs/month</li>
+            <li>AI product listing generators for Amazon & Flipkart</li>
+            <li>Trained custom LoRAs and inpainting models for brand identity retention</li>
+          </ul>
+          <div class="tag-row" style="margin-top:16px;">
+            <span class="tag tag-purple">ComfyUI</span>
+            <span class="tag tag-purple">ControlNet</span>
+            <span class="tag tag-purple">IC-Light</span>
+            <span class="tag tag-purple">IP-Adapter</span>
+            <span class="tag tag-purple">LoRA</span>
+            <span class="tag tag-grey">n8n</span>
+            <span class="tag tag-grey">Python</span>
+            <span class="tag tag-grey">RAG</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zebotech -->
+    <div class="project-card fade-up">
+      <div class="project-header">
+        <div>
+          <span class="project-badge badge-deployed">Deployed · Active Client · Built Solo</span>
+          <div class="project-name">Zebotech AI Product Pipeline</div>
+          <p class="project-desc">
+            End-to-end AI content pipeline for an e-commerce electronics client. Scrapes competitor product data,
+            runs it through a 3-stage Gemini AI generation pipeline, produces marketing-ready images, and
+            publishes directly to Shopify — zero manual steps. Saving the client significant production hours weekly.
+          </p>
+        </div>
+        <div class="project-metric-box">
+          <div class="project-metric-num">3</div>
+          <div class="project-metric-label">AI pipeline stages<br>fully automated</div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-body-col">
+          <div class="body-label">Pipeline Architecture</div>
+          <ul class="body-items">
+            <li>Stage 1 — Web scraping via Zyte API + Playwright: extracts and normalises competitor product data, bypasses bot detection</li>
+            <li>Stage 2 — Gemini AI: structured JSON prompts (versioned, model fallbacks) generate product descriptions with quality scoring</li>
+            <li>Stage 3 — Generative image production → direct publish to Shopify via GraphQL API</li>
+          </ul>
+        </div>
+        <div class="project-body-col">
+          <div class="body-label">Internal Tooling Stack</div>
+          <ul class="body-items">
+            <li>FastAPI backend with SQLite-backed async task queue — no Redis needed, survives restarts</li>
+            <li>Next.js + TypeScript frontend UI — client's team runs the full pipeline with no engineering support</li>
+            <li>Docker Compose deployment on Hostinger VPS — live and maintained</li>
+            <li>Exponential backoff, concurrency controls, cascading failure detection</li>
+          </ul>
+          <div class="tag-row" style="margin-top:16px;">
+            <span class="tag tag-teal">FastAPI</span>
+            <span class="tag tag-teal">Gemini API</span>
+            <span class="tag tag-teal">Shopify GraphQL</span>
+            <span class="tag tag-teal">Next.js</span>
+            <span class="tag tag-teal">Docker</span>
+            <span class="tag tag-teal">VPS</span>
+            <span class="tag tag-grey">Playwright</span>
+            <span class="tag tag-grey">SQLite</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Algo Trading -->
+    <div class="project-card fade-up">
+      <div class="project-header">
+        <div>
+          <span class="project-badge badge-personal">Personal Project · Deployed Locally</span>
+          <div class="project-name">Algorithmic Options Trading System</div>
+          <p class="project-desc">
+            Fully automated options trading system for Indian markets — built for personal use.
+            Monitors support/resistance levels, executes trades atomically, manages trailing stop-losses,
+            and mirrors trades across two accounts simultaneously. 7,000+ lines of Python.
+          </p>
+        </div>
+        <div class="project-metric-box">
+          <div class="project-metric-num">7k+</div>
+          <div class="project-metric-label">lines of Python<br>built solo</div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-body-col">
+          <div class="body-label">Engineering Highlights</div>
+          <ul class="body-items">
+            <li>Atomic entry + stop-loss placement — succeeds or fails together, no partial state</li>
+            <li>Trailing SL state machine: NONE → ARMED → ARMED_BE → TRAILING</li>
+            <li>Dual-account mirror trading via parallel threads — both accounts execute simultaneously</li>
+            <li>Adaptive monitoring intervals: 30s normal, 5s near trigger levels</li>
+            <li>Daily state persistence — survives crashes and restarts without data loss</li>
+          </ul>
+        </div>
+        <div class="project-body-col">
+          <div class="body-label">Instruments & Stack</div>
+          <ul class="body-items">
+            <li>11 pre-configured instruments: NIFTY, BANKNIFTY, FINNIFTY + MCX commodities (CRUDEOIL, GOLD, SILVER)</li>
+            <li>Flask web UI for configuration, live monitoring, trade history and error log viewer</li>
+            <li>Dynamic expiry switching — weekly and monthly, auto-detected from broker API</li>
+          </ul>
+          <div class="tag-row" style="margin-top:16px;">
+            <span class="tag tag-pink">Python</span>
+            <span class="tag tag-pink">Flask</span>
+            <span class="tag tag-pink">Zerodha Kite API</span>
+            <span class="tag tag-grey">Threading</span>
+            <span class="tag tag-grey">Pandas</span>
+            <span class="tag tag-grey">State Machines</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── TECH STACK ─── -->
+<section id="stack" class="fade-up" style="border-top:1px solid var(--border);">
+  <div class="section-label">Tech Stack</div>
+  <h2 class="section-heading">The full toolkit.</h2>
+  <p class="section-sub">From model selection to production deployment — no handoffs needed.</p>
+  <div class="stack-groups">
+    <div class="stack-group">
+      <div class="stack-group-label">ComfyUI & Open-Source Models</div>
+      <div class="stack-tags">
+        <span class="stack-tag">ComfyUI</span>
+        <span class="stack-tag">Stable Diffusion</span>
+        <span class="stack-tag">FLUX</span>
+        <span class="stack-tag">AnimateDiff</span>
+        <span class="stack-tag">ControlNet</span>
+        <span class="stack-tag">IC-Light</span>
+        <span class="stack-tag">IP-Adapter</span>
+        <span class="stack-tag">GroundingDINO</span>
+        <span class="stack-tag">SAM</span>
+        <span class="stack-tag">LoRA Training</span>
+        <span class="stack-tag">Inpainting</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <div class="stack-group-label">AI Image & Video Tools</div>
+      <div class="stack-tags">
+        <span class="stack-tag">Nano Banana Pro</span>
+        <span class="stack-tag">Nano Banana 2</span>
+        <span class="stack-tag">Kling</span>
+        <span class="stack-tag">Veo3</span>
+        <span class="stack-tag">Wan2.2</span>
+        <span class="stack-tag">Sora 2</span>
+        <span class="stack-tag">Gemini Image API</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <div class="stack-group-label">AI APIs & Integration</div>
+      <div class="stack-tags">
+        <span class="stack-tag">Gemini API</span>
+        <span class="stack-tag">Shopify GraphQL</span>
+        <span class="stack-tag">Zyte API</span>
+        <span class="stack-tag">Zerodha Kite Connect</span>
+        <span class="stack-tag">REST API Design</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <div class="stack-group-label">Backend & Automation</div>
+      <div class="stack-tags">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">FastAPI</span>
+        <span class="stack-tag">Flask</span>
+        <span class="stack-tag">n8n</span>
+        <span class="stack-tag">RAG Systems</span>
+        <span class="stack-tag">SQLite</span>
+        <span class="stack-tag">Task Queues</span>
+        <span class="stack-tag">Playwright</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <div class="stack-group-label">Frontend & Internal Tools</div>
+      <div class="stack-tags">
+        <span class="stack-tag">Next.js</span>
+        <span class="stack-tag">TypeScript</span>
+        <span class="stack-tag">React</span>
+        <span class="stack-tag">Tailwind CSS</span>
+        <span class="stack-tag">Framer Motion</span>
+        <span class="stack-tag">Radix UI</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <div class="stack-group-label">Deployment & Tooling</div>
+      <div class="stack-tags">
+        <span class="stack-tag">Docker</span>
+        <span class="stack-tag">VPS (Hostinger)</span>
+        <span class="stack-tag">Ubuntu Server</span>
+        <span class="stack-tag">Git / GitHub</span>
+        <span class="stack-tag">Claude Code</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EXPERIENCE ─── -->
+<section id="experience" class="fade-up" style="border-top:1px solid var(--border);">
+  <div class="section-label">Experience</div>
+  <h2 class="section-heading">The journey.</h2>
+  <p class="section-sub" style="margin-bottom:48px;">Sales, marketing, then AI engineering. The sequence matters — I understand what I'm building for.</p>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-header">
+        <span class="tl-company">ShopOS</span>
+        <span class="tl-role">AI Workflow Engineer</span>
+        <span class="tl-date">Jun 2025 – Sep 2025 · Bangalore</span>
+      </div>
+      <ul class="tl-bullets">
+        <li>Built AI Marketing Ad Gen workflow, live in ShopOS Pro — selected via ComfyUI technical assessment</li>
+        <li>Designed 5 ComfyUI workflows: ControlNet, IC-Light, IP-Adapter, GroundingDINO+SAM, full pipeline</li>
+        <li>RAG information retrieval system — 40% improvement in CRM response accuracy</li>
+        <li>n8n + Python automation workflows — saved 25–40 hrs/month of manual CRM work</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-header">
+        <span class="tl-company">Zebotech</span>
+        <span class="tl-role">AI Systems Engineer (Freelance)</span>
+        <span class="tl-date">Oct 2025 – Present · Remote</span>
+      </div>
+      <ul class="tl-bullets">
+        <li>Solo-built full-stack AI content pipeline — deployed, active, client-used</li>
+        <li>3-stage Gemini pipeline: scraping → AI generation → Shopify publishing</li>
+        <li>FastAPI + Next.js internal tool with VPS deployment</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dim"></div>
+      <div class="tl-header">
+        <span class="tl-company">Delta Infotek</span>
+        <span class="tl-role">Business Development & Marketing Associate</span>
+        <span class="tl-date">Jan 2024 – Dec 2024 · Bangalore</span>
+      </div>
+      <ul class="tl-bullets">
+        <li>Automated lead gen workflows (Apollo, SignalHire, ZoomInfo) — 30% manual workload reduction</li>
+        <li>Email infrastructure setup across 5 domains (DKIM, DMARC, SPF) — 30% deliverability lift</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dim"></div>
+      <div class="tl-header">
+        <span class="tl-company">SignalX</span>
+        <span class="tl-role">Sales Development Representative (Intern)</span>
+        <span class="tl-date">Jun 2023 – Nov 2023 · Hyderabad</span>
+      </div>
+      <ul class="tl-bullets">
+        <li>₹17+ lakh deal with Ashok Leyland; 1,500–2,000 emails/month with A/B tested sequences</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dim"></div>
+      <div class="tl-header">
+        <span class="tl-company">Jain University</span>
+        <span class="tl-role">BBA — Graduated with Distinction</span>
+        <span class="tl-date">Bangalore</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<div id="contact">
+  <div class="contact-inner">
+    <h2 class="contact-heading">Let's build something that<br><span style="color:var(--accent-light)">actually ships.</span></h2>
+    <p class="contact-sub">
+      Based in Bangalore. Open to relocation — Kuala Lumpur, Malaysia.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:charan.s.prasad@gmail.com" class="contact-link primary">
+        ✉ charan.s.prasad@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/charan-sprasad/" target="_blank" class="contact-link secondary">
+        LinkedIn ↗
+      </a>
+      <a href="https://drive.google.com/drive/folders/12W9caHQILcswEYJzGElZJjJndlPHyWtZ?usp=sharing" target="_blank" class="contact-link secondary">
+        ComfyUI Workflows ↗
+      </a>
+    </div>
+    <p class="footer-note">All creative images are AI-generated using Nano Banana Pro & Nano Banana 2 · © 2026 Charan Shyam Prasad</p>
+  </div>
+</div>
+
+<!-- ─── LIGHTBOX ─── -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+// Tab switching
+function showTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Lightbox
+function openLightbox(el) {
+  const src = el.querySelector('img').src;
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.fade-up').forEach((el, i) => {
+  el.style.transitionDelay = (i % 4) * 0.07 + 's';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
