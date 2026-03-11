@@ -385,6 +385,47 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
 }
 .lightbox-close:hover { color: var(--text); }
 
+/* ─── ABOUT ─── */
+.about-grid {
+  display: grid; grid-template-columns: 340px 1fr; gap: 72px; align-items: center;
+}
+.about-photo-wrap {
+  position: relative;
+}
+.about-photo {
+  width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: top;
+  border-radius: 16px; display: block;
+  border: 1px solid var(--border);
+}
+.about-photo-glow {
+  position: absolute; inset: -1px; border-radius: 16px; z-index: -1;
+  background: linear-gradient(135deg, var(--accent), var(--pink));
+  opacity: 0.25; filter: blur(20px);
+}
+.about-text {}
+.about-name {
+  font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent-light); margin-bottom: 20px;
+}
+.about-headline {
+  font-size: clamp(22px, 2.5vw, 32px); font-weight: 800; letter-spacing: -0.5px;
+  line-height: 1.2; margin-bottom: 24px;
+}
+.about-body { font-size: 15px; color: var(--muted); line-height: 1.75; }
+.about-body p { margin-bottom: 16px; }
+.about-body p:last-child { margin-bottom: 0; }
+.about-body strong { color: var(--text); font-weight: 600; }
+.about-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.about-chip {
+  font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px;
+  background: var(--surface2); border: 1px solid var(--border2); color: var(--muted);
+  letter-spacing: 0.3px;
+}
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-photo { aspect-ratio: 1/1; }
+}
+
 /* ─── FADE IN ANIMATION ─── */
 .fade-up {
   opacity: 0; transform: translateY(28px);
@@ -419,6 +460,7 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
 <nav>
   <span class="nav-name">Charan Shyam Prasad</span>
   <div class="nav-links">
+    <a href="#about">About</a>
     <a href="#work">Work</a>
     <a href="#creative">Creative</a>
     <a href="#projects">Projects</a>
@@ -426,7 +468,6 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
     <a href="#experience">Experience</a>
   </div>
   <a href="./resume_airasia.html" class="nav-resume">Resume</a>
-  <a href="mailto:charan.s.prasad@gmail.com" class="nav-cta">Get in touch</a>
 </nav>
 
 <!-- ─── HERO ─── -->
@@ -461,6 +502,51 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
       <div class="stat">
         <span class="stat-num">7k+</span>
         <span class="stat-label">Lines — Algo Trading System</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about" class="fade-up" style="border-top:1px solid var(--border);">
+  <div class="section-label">About</div>
+  <div class="about-grid">
+    <div class="about-photo-wrap">
+      <img src="picofme.png" alt="Charan Shyam Prasad" class="about-photo">
+      <div class="about-photo-glow"></div>
+    </div>
+    <div class="about-text">
+      <div class="about-name">Charan Shyam Prasad</div>
+      <h2 class="about-headline">I'm obsessed with AI.<br>Not casually — genuinely.</h2>
+      <div class="about-body">
+        <p>
+          Most businesses are still creating images one by one. I build the systems that let you produce
+          <strong>hundreds of on-brand, consistent visuals — automatically.</strong>
+          Whether you need product images, marketing creatives, or custom brand assets at scale,
+          I engineer the AI workflow behind it so your team can hit a button and get what they need —
+          without touching a prompt.
+        </p>
+        <p>
+          I've shipped it in production: an AI Ad Creative generation workflow live in <strong>ShopOS Pro</strong>,
+          a full-stack AI content pipeline for a live e-commerce client, and campaign-quality visuals
+          that look like they cost ten times what they did. I sit at the intersection of
+          <strong>AI engineering and creative production</strong> — and I understand what makes an ad work,
+          not just what makes it look good.
+        </p>
+        <p>
+          What you get isn't just a deliverable. It's a <strong>working system</strong> — documented,
+          handed off, and built so your team can run it without me.
+        </p>
+      </div>
+      <div class="about-chips">
+        <span class="about-chip">ComfyUI Workflows</span>
+        <span class="about-chip">AI Ad Creative</span>
+        <span class="about-chip">LoRA Training</span>
+        <span class="about-chip">Nano Banana</span>
+        <span class="about-chip">Python Pipelines</span>
+        <span class="about-chip">n8n Automation</span>
+        <span class="about-chip">Based in Bangalore</span>
+        <span class="about-chip">Open to KL, Malaysia</span>
       </div>
     </div>
   </div>
@@ -518,23 +604,23 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
     <div id="tab-street" class="tab-panel active fade-up">
       <div class="gallery-grid" style="grid-template-columns:repeat(3,1fr);">
         <div class="gal-item" onclick="openLightbox(this)">
-          <img src="hf_20260310_150442_5734d738-a33a-48cc-a9b7-0ecf67d3549e%20(1).jpeg" alt="Street Culture — Standing" loading="lazy">
+          <img src="hf_20260310_150442_5734d738-a33a-48cc-a9b7-0ecf67d3549e%20(1).jpeg" alt="Street Culture — Standing" loading="eager" decoding="async">
           <div class="gal-overlay"><span class="gal-tag">Street Culture</span></div>
         </div>
         <div class="gal-item" onclick="openLightbox(this)">
-          <img src="hf_20260310_150709_0f05b417-20ac-4bf1-914b-dbe0c5ea13f3.jpeg" alt="Street Culture — Walking" loading="lazy">
+          <img src="hf_20260310_150709_0f05b417-20ac-4bf1-914b-dbe0c5ea13f3.jpeg" alt="Street Culture — Walking" loading="eager" decoding="async">
           <div class="gal-overlay"><span class="gal-tag">Street Culture</span></div>
         </div>
         <div class="gal-item" onclick="openLightbox(this)">
-          <img src="hf_20260310_150734_899c2427-f300-4bc2-ba77-ea9d9712a0ba.jpeg" alt="Street Culture" loading="lazy">
+          <img src="hf_20260310_150734_899c2427-f300-4bc2-ba77-ea9d9712a0ba.jpeg" alt="Street Culture" loading="eager" decoding="async">
           <div class="gal-overlay"><span class="gal-tag">Street Culture</span></div>
         </div>
         <div class="gal-item" onclick="openLightbox(this)">
-          <img src="hf_20260310_150752_11b327d1-dfb6-44fd-b09a-29b36f87e654.jpeg" alt="Street Culture" loading="lazy">
+          <img src="hf_20260310_150752_11b327d1-dfb6-44fd-b09a-29b36f87e654.jpeg" alt="Street Culture" loading="eager" decoding="async">
           <div class="gal-overlay"><span class="gal-tag">Street Culture</span></div>
         </div>
         <div class="gal-item" onclick="openLightbox(this)">
-          <img src="hf_20260310_150956_d3ae22c5-eede-4441-a9f2-6db39603652b.jpeg" alt="Street Culture" loading="lazy">
+          <img src="hf_20260310_150956_d3ae22c5-eede-4441-a9f2-6db39603652b.jpeg" alt="Street Culture" loading="eager" decoding="async">
           <div class="gal-overlay"><span class="gal-tag">Street Culture</span></div>
         </div>
       </div>
@@ -873,7 +959,7 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
       <div class="tl-header">
         <span class="tl-company">Zebotech</span>
         <span class="tl-role">AI Systems Engineer (Freelance)</span>
-        <span class="tl-date">Oct 2025 – Present · Remote</span>
+        <span class="tl-date">Feb 2026 – Mar 2026 · Remote</span>
       </div>
       <ul class="tl-bullets">
         <li>Solo-built full-stack AI content pipeline — deployed, active, client-used</li>
