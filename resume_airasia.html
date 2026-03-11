@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charan Shyam Prasad — Resume</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.45;
+    color: #1a1a1a;
+    background: #fff;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 36px 40px;
+  }
+
+  /* HEADER */
+  .header { margin-bottom: 14px; }
+  .header h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 22pt;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #111;
+    margin-bottom: 4px;
+  }
+  .header .contact {
+    font-family: 'Roboto', sans-serif;
+    font-size: 9pt;
+    color: #444;
+    line-height: 1.7;
+  }
+  .header .contact a { color: #1a56a8; text-decoration: none; }
+
+  /* SECTION */
+  .section { margin-top: 16px; }
+  .section-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #111;
+    border-bottom: 1.5px solid #111;
+    padding-bottom: 3px;
+    margin-bottom: 10px;
+  }
+
+  /* SUMMARY */
+  .summary p {
+    font-size: 10pt;
+    color: #222;
+    line-height: 1.55;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 20px;
+  }
+  .skill-row {
+    font-size: 9.5pt;
+    line-height: 1.5;
+  }
+  .skill-label {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #111;
+  }
+
+  /* EXPERIENCE */
+  .job { margin-bottom: 14px; }
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1px;
+  }
+  .job-company {
+    font-family: 'Roboto', sans-serif;
+    font-size: 11pt;
+    font-weight: 700;
+    color: #111;
+  }
+  .job-date {
+    font-family: 'Roboto', sans-serif;
+    font-size: 9pt;
+    color: #555;
+    white-space: nowrap;
+  }
+  .job-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 9.5pt;
+    font-style: italic;
+    color: #333;
+    margin-bottom: 6px;
+  }
+  .job ul {
+    padding-left: 16px;
+    list-style-type: disc;
+  }
+  .job ul li {
+    font-size: 9.8pt;
+    margin-bottom: 4px;
+    line-height: 1.45;
+  }
+  .job ul li strong {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+  }
+
+  /* EDUCATION */
+  .edu-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .edu-inst {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 10.5pt;
+  }
+  .edu-loc {
+    font-family: 'Roboto', sans-serif;
+    font-size: 9pt;
+    color: #555;
+  }
+  .edu-degree {
+    font-size: 9.8pt;
+    color: #333;
+    margin-top: 1px;
+  }
+
+  /* PORTFOLIO */
+  .portfolio-links {
+    font-size: 9.5pt;
+    line-height: 1.7;
+  }
+  .portfolio-links a { color: #1a56a8; }
+  .portfolio-links .link-label {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+  }
+
+  /* PRINT */
+  @media print {
+    body { padding: 20px 28px; }
+    @page { margin: 0.5in; }
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 0.5px solid #ccc;
+    margin: 3px 0 10px;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>CHARAN SHYAM PRASAD</h1>
+  <div class="contact">
+    Bangalore, India &nbsp;·&nbsp; Open to relocation — Kuala Lumpur, Malaysia
+    &nbsp;·&nbsp; +91 9008001592 &nbsp;·&nbsp; charan.s.prasad@gmail.com
+    &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/charan-sprasad/">linkedin.com/in/charan-sprasad</a>
+    &nbsp;·&nbsp; <a href="./Charan_Prasad_Portfolio.pdf">AI Creative Portfolio</a>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="section summary">
+  <div class="section-title">Profile</div>
+  <p>
+    AI Creative Systems Builder with hands-on experience designing production-grade AI generation pipelines,
+    ComfyUI workflows, and internal automation tools that non-technical teams actually use. Built an AI Ad Creative
+    generation workflow — using Python and Nano Banana — currently live in ShopOS Pro, and independently architected
+    a full-stack AI content pipeline for a live e-commerce client. Proficient across the full AI creative stack —
+    ComfyUI workflow design, LoRA training, ControlNet/IC-Light/IP-Adapter, Python pipeline engineering, and
+    API-connected backends with deployable interfaces. Hands-on with Nano Banana, Kling, Veo3, Wan2.2, FLUX,
+    AnimateDiff, and Stable Diffusion. Grounded in performance marketing from prior roles — understands what makes
+    an ad work, not just what makes it look good.
+  </p>
+</div>
+
+<!-- SKILLS -->
+<div class="section">
+  <div class="section-title">Technical Skills</div>
+  <div class="skills-grid">
+    <div class="skill-row">
+      <span class="skill-label">ComfyUI &amp; Open-Source Models:</span>
+      Workflow design, ControlNet (Canny), IC-Light, IP-Adapter, GroundingDINO + SAM,
+      LoRA training, inpainting, FLUX, Stable Diffusion, AnimateDiff, custom node integration
+    </div>
+    <div class="skill-row">
+      <span class="skill-label">AI Image &amp; Video Tools:</span>
+      Nano Banana Pro / Nano Banana 2, Kling, Veo3, Wan2.2, Sora 2;
+      prompt engineering, lighting control, model selection &amp; evaluation
+    </div>
+    <div class="skill-row">
+      <span class="skill-label">AI APIs &amp; Pipeline Integration:</span>
+      Gemini API (multi-model pipeline with fallbacks), Shopify GraphQL,
+      Zyte (bot-bypass scraping), Zerodha Kite Connect
+    </div>
+    <div class="skill-row">
+      <span class="skill-label">Backend &amp; Automation:</span>
+      Python, FastAPI, Flask, n8n, RAG systems,
+      SQLite, Docker / Docker Compose, task queue architecture
+    </div>
+    <div class="skill-row">
+      <span class="skill-label">Frontend &amp; Internal Tools:</span>
+      Next.js, TypeScript, React, Tailwind CSS, Radix UI,
+      Framer Motion; full-stack internal tool development
+    </div>
+    <div class="skill-row">
+      <span class="skill-label">Deployment &amp; Infra:</span>
+      VPS (Hostinger), Ubuntu server management,
+      Docker Compose, Git / version control, AI coding agents (Claude Code)
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="section">
+  <div class="section-title">Professional Experience</div>
+
+  <!-- Zebotech -->
+  <div class="job">
+    <div class="job-header">
+      <span class="job-company">Zebotech &nbsp;<span style="font-weight:400;font-size:9.5pt;font-style:italic;">(Freelance Client Project)</span></span>
+      <span class="job-date">Feb 2026 – Mar 2026</span>
+    </div>
+    <div class="job-title">AI Systems Engineer &nbsp;·&nbsp; Remote</div>
+    <ul>
+      <li>
+        <strong>Solo-built and deployed</strong> an end-to-end AI product content pipeline for a live e-commerce
+        electronics client — actively used in production, saving significant manual hours on product listing creation weekly.
+      </li>
+      <li>
+        <strong>Architected a 3-stage AI generation pipeline:</strong> Stage 1 — web scraping via Zyte API +
+        Playwright to extract and normalize competitor product data. Stage 2 — structured Gemini AI pipeline
+        (versioned JSON prompts, model fallbacks) to generate product descriptions. Stage 3 — generative AI image
+        production followed by direct publishing to Shopify via GraphQL API.
+      </li>
+      <li>
+        <strong>Built the complete internal tooling stack</strong> for non-technical operators: FastAPI backend
+        with an SQLite-backed async task queue, Docker Compose deployment on a VPS, and a Next.js / TypeScript
+        frontend UI — the client's team runs the full pipeline without any engineering support.
+      </li>
+      <li>
+        Implemented production-grade resilience: exponential backoff, per-task concurrency controls, cascading
+        failure detection, and state persistence across server restarts.
+      </li>
+    </ul>
+  </div>
+
+  <!-- ShopOS -->
+  <div class="job">
+    <div class="job-header">
+      <span class="job-company">ShopOS</span>
+      <span class="job-date">Jun 2025 – Sep 2025</span>
+    </div>
+    <div class="job-title">AI Workflow Engineer &nbsp;·&nbsp; Bangalore, India</div>
+    <ul>
+      <li>
+        <strong>Built the AI Marketing Ad Gen workflow</strong> now live in ShopOS Pro — built with Python and
+        Nano Banana; brands provide minimal product inputs and receive production-ready ad creatives, eliminating
+        design dependency for campaign launches.
+      </li>
+      <li>
+        <strong>Designed 5 distinct ComfyUI workflows</strong> for product image stylization as part of the
+        technical hiring assessment: ControlNet/Canny (shape &amp; edge preservation), IC-Light (photorealistic
+        depth and lighting), IP-Adapter (guided stylization with identity retention), GroundingDINO + SAM (precise
+        product segmentation), and a combined high-fidelity pipeline integrating all of the above.
+      </li>
+      <li>
+        <strong>Trained custom LoRAs and inpainting models</strong> to maintain consistent product visual
+        identity across stylization passes, enabling brand-accurate AI image generation at scale.
+      </li>
+      <li>
+        <strong>Built a RAG information retrieval system</strong> for the CRM team, giving reps instant access to
+        structured client data and improving response speed and accuracy by 40%.
+      </li>
+      <li>
+        <strong>Automated repetitive CRM workflows</strong> using n8n and Python, eliminating 25–40 hours/month
+        of manual effort and freeing the team for higher-value work.
+      </li>
+      <li>
+        Developed AI-driven product listing generators for Amazon &amp; Flipkart, improving listing quality and
+        marketplace performance.
+      </li>
+    </ul>
+  </div>
+
+  <!-- Delta Infotek -->
+  <div class="job">
+    <div class="job-header">
+      <span class="job-company">Delta Infotek</span>
+      <span class="job-date">Jan 2024 – Dec 2024</span>
+    </div>
+    <div class="job-title">Business Development &amp; Marketing Associate &nbsp;·&nbsp; Bangalore, India (Remote)</div>
+    <ul>
+      <li>
+        Automated lead generation and outreach workflows using Apollo, SignalHire, Lusha, and ZoomInfo,
+        reducing manual workload by 30% and driving a 15% increase in lead conversions.
+      </li>
+      <li>
+        Set up email infrastructure (DKIM, DMARC, SPF) across five domains, improving deliverability by 30%;
+        executed account-based prospecting campaigns across LinkedIn and email.
+      </li>
+    </ul>
+  </div>
+
+  <!-- SignalX -->
+  <div class="job">
+    <div class="job-header">
+      <span class="job-company">SignalX</span>
+      <span class="job-date">Jun 2023 – Nov 2023</span>
+    </div>
+    <div class="job-title">Sales Development Representative (Intern) &nbsp;·&nbsp; Hyderabad, India</div>
+    <ul>
+      <li>
+        Managed 1,500–2,000 outbound emails/month with A/B tested sequences, generating 20–30 qualified
+        leads monthly; closed a ₹17+ lakh deal with Ashok Leyland end-to-end.
+      </li>
+    </ul>
+  </div>
+
+  <!-- Kapture CX -->
+  <div class="job">
+    <div class="job-header">
+      <span class="job-company">Kapture CX</span>
+      <span class="job-date">Feb 2023 – Jun 2023</span>
+    </div>
+    <div class="job-title">Lead Generation &amp; Pre-Sales Specialist (Intern) &nbsp;·&nbsp; Bangalore, India</div>
+    <ul>
+      <li>
+        Cold call and email outreach securing senior decision-maker meetings; managed lead qualification
+        and onboarding communication.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- PERSONAL PROJECTS -->
+<div class="section">
+  <div class="section-title">Personal Projects</div>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="job-company">Algorithmic Options Trading System</span>
+      <span class="job-date">Nov 2025 – Present</span>
+    </div>
+    <div class="job-title">Python / Flask / Zerodha Kite Connect API</div>
+    <ul>
+      <li>
+        Built a fully automated options trading system (7,000+ lines) for Indian markets (NSE/NFO/MCX) —
+        support/resistance level monitoring, atomic entry + stop-loss placement, trailing SL state machine,
+        and dual-account mirror trading via parallel threads.
+      </li>
+      <li>
+        Flask web UI for instrument configuration and live monitoring; persistent state across restarts.
+      </li>
+    </ul>
+  </div>
+
+  <div class="job" style="margin-bottom:0;">
+    <div class="job-header">
+      <span class="job-company">Multiple LoRA Training &amp; AI Digital Clone</span>
+      <span class="job-date">Apr 2025</span>
+    </div>
+    <div class="job-title">Stable Diffusion / LoRA Fine-tuning</div>
+    <ul>
+      <li>
+        Trained multiple custom LoRA models to create a consistent AI-generated digital likeness — applied
+        across editorial, fashion, and lifestyle creative contexts.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<div class="section">
+  <div class="section-title">Education</div>
+  <div class="edu-row">
+    <span class="edu-inst">Jain University</span>
+    <span class="edu-loc">Bangalore, India</span>
+  </div>
+  <div class="edu-degree">Bachelor of Business Administration (BBA) &nbsp;·&nbsp; Graduated with Distinction</div>
+</div>
+
+
+</body>
+</html>
