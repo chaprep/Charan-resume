@@ -385,45 +385,43 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
 }
 .lightbox-close:hover { color: var(--text); }
 
-/* ─── ABOUT ─── */
-.about-grid {
-  display: grid; grid-template-columns: 340px 1fr; gap: 72px; align-items: center;
+/* ─── HERO+ABOUT COMBINED ─── */
+.hero-about-grid {
+  display: grid; grid-template-columns: 1fr 420px; gap: 80px; align-items: center;
+  max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;
 }
 .about-photo-wrap {
-  position: relative;
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: 24px;
 }
 .about-photo {
-  width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: top;
-  border-radius: 16px; display: block;
-  border: 1px solid var(--border);
+  width: 300px; height: 300px; border-radius: 50%;
+  object-fit: cover; display: block;
+  border: 2px solid var(--border2);
+  box-shadow: 0 0 60px rgba(124,58,237,0.2);
 }
 .about-photo-glow {
-  position: absolute; inset: -1px; border-radius: 16px; z-index: -1;
-  background: linear-gradient(135deg, var(--accent), var(--pink));
-  opacity: 0.25; filter: blur(20px);
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 300px; height: 300px; border-radius: 50%; z-index: -1;
+  background: radial-gradient(circle, rgba(124,58,237,0.3) 0%, transparent 70%);
+  filter: blur(24px);
 }
-.about-text {}
+.about-name-block { text-align: center; }
 .about-name {
-  font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--accent-light); margin-bottom: 20px;
+  font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: 0.3px;
+  margin-bottom: 4px;
 }
-.about-headline {
-  font-size: clamp(22px, 2.5vw, 32px); font-weight: 800; letter-spacing: -0.5px;
-  line-height: 1.2; margin-bottom: 24px;
-}
-.about-body { font-size: 15px; color: var(--muted); line-height: 1.75; }
-.about-body p { margin-bottom: 16px; }
-.about-body p:last-child { margin-bottom: 0; }
-.about-body strong { color: var(--text); font-weight: 600; }
-.about-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.about-title { font-size: 12px; color: var(--muted); letter-spacing: 0.5px; }
+.about-chips { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 16px; }
 .about-chip {
-  font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px;
+  font-size: 11px; font-weight: 600; padding: 5px 12px; border-radius: 20px;
   background: var(--surface2); border: 1px solid var(--border2); color: var(--muted);
   letter-spacing: 0.3px;
 }
 @media (max-width: 900px) {
-  .about-grid { grid-template-columns: 1fr; gap: 40px; }
-  .about-photo { aspect-ratio: 1/1; }
+  .hero-about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .about-photo-wrap { order: -1; }
+  .about-photo { width: 220px; height: 220px; }
+  .about-photo-glow { width: 220px; height: 220px; }
 }
 
 /* ─── FADE IN ANIMATION ─── */
@@ -470,85 +468,72 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
   <a href="./resume_airasia.html" class="nav-resume">Resume</a>
 </nav>
 
-<!-- ─── HERO ─── -->
-<section id="hero" style="max-width:100%;padding-left:48px;padding-right:48px;">
+<!-- ─── HERO + ABOUT (combined) ─── -->
+<section id="about" style="max-width:100%;padding:120px 48px 100px;position:relative;overflow:hidden;">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
-  <div style="position:relative;z-index:1;max-width:1200px;margin:0 auto;">
-    <div class="hero-tag">AI Creative Systems Builder</div>
-    <h1 class="hero-headline">
-      I build the systems<br>
-      <span class="line-dim">that make creativity</span><br>
-      <span class="accent">scale.</span>
-    </h1>
-    <p class="hero-sub">
-      ComfyUI pipelines. Multi-stage AI generation. Internal tools that non-technical teams
-      actually use. I sit at the intersection of AI engineering and creative production —
-      and I've already shipped it in production.
-    </p>
-    <div class="hero-stats">
-      <div class="stat">
-        <span class="stat-num">5</span>
-        <span class="stat-label">ComfyUI Workflows Built</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">Live</span>
-        <span class="stat-label">Ad Gen Workflow in ShopOS Pro</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">3×</span>
-        <span class="stat-label">AI Pipeline Stages, Zebotech</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">7k+</span>
-        <span class="stat-label">Lines — Algo Trading System</span>
-      </div>
-    </div>
-  </div>
-</section>
+  <div class="hero-about-grid">
 
-<!-- ─── ABOUT ─── -->
-<section id="about" class="fade-up" style="border-top:1px solid var(--border);">
-  <div class="section-label">About</div>
-  <div class="about-grid">
-    <div class="about-photo-wrap">
-      <img src="picofme.png" alt="Charan Shyam Prasad" class="about-photo">
-      <div class="about-photo-glow"></div>
+    <!-- Left: headline + bio + stats -->
+    <div>
+      <div class="hero-tag">AI Creative Systems Builder</div>
+      <h1 class="hero-headline">
+        I build the systems<br>
+        <span class="line-dim">that make creativity</span><br>
+        <span class="accent">scale.</span>
+      </h1>
+      <p class="hero-sub">
+        Most businesses are still creating images one by one. I build the systems that let you produce
+        <strong style="color:var(--text);">hundreds of on-brand, consistent visuals — automatically.</strong>
+        Whether you need product images, marketing creatives, or custom brand assets at scale,
+        I engineer the AI workflow behind it so your team can hit a button and get what they need —
+        without touching a prompt.
+      </p>
+      <p class="hero-sub" style="margin-top:-24px;">
+        I've shipped it in production — ad creative workflows live in <strong style="color:var(--text);">ShopOS Pro</strong>,
+        a full-stack AI content pipeline for a live e-commerce client, and campaign-quality visuals
+        that look like they cost ten times what they did.
+        What you get isn't just a deliverable — it's a <strong style="color:var(--text);">working system</strong>,
+        documented and built so your team can run it without me.
+      </p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">5</span>
+          <span class="stat-label">ComfyUI Workflows Built</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">Live</span>
+          <span class="stat-label">Ad Gen Workflow in ShopOS Pro</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">3×</span>
+          <span class="stat-label">AI Pipeline Stages, Zebotech</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">7k+</span>
+          <span class="stat-label">Lines — Algo Trading System</span>
+        </div>
+      </div>
     </div>
-    <div class="about-text">
-      <div class="about-name">Charan Shyam Prasad</div>
-      <h2 class="about-headline">I'm obsessed with AI.<br>Not casually — genuinely.</h2>
-      <div class="about-body">
-        <p>
-          Most businesses are still creating images one by one. I build the systems that let you produce
-          <strong>hundreds of on-brand, consistent visuals — automatically.</strong>
-          Whether you need product images, marketing creatives, or custom brand assets at scale,
-          I engineer the AI workflow behind it so your team can hit a button and get what they need —
-          without touching a prompt.
-        </p>
-        <p>
-          I've shipped it in production: an AI Ad Creative generation workflow live in <strong>ShopOS Pro</strong>,
-          a full-stack AI content pipeline for a live e-commerce client, and campaign-quality visuals
-          that look like they cost ten times what they did. I sit at the intersection of
-          <strong>AI engineering and creative production</strong> — and I understand what makes an ad work,
-          not just what makes it look good.
-        </p>
-        <p>
-          What you get isn't just a deliverable. It's a <strong>working system</strong> — documented,
-          handed off, and built so your team can run it without me.
-        </p>
+
+    <!-- Right: photo + name + chips -->
+    <div class="about-photo-wrap">
+      <div class="about-photo-glow"></div>
+      <img src="picofme.png" alt="Charan Shyam Prasad" class="about-photo">
+      <div class="about-name-block">
+        <div class="about-name">Charan Shyam Prasad</div>
+        <div class="about-title">AI Creative Systems Builder · Bangalore</div>
       </div>
       <div class="about-chips">
-        <span class="about-chip">ComfyUI Workflows</span>
-        <span class="about-chip">AI Ad Creative</span>
-        <span class="about-chip">LoRA Training</span>
+        <span class="about-chip">ComfyUI</span>
         <span class="about-chip">Nano Banana</span>
         <span class="about-chip">Python Pipelines</span>
-        <span class="about-chip">n8n Automation</span>
-        <span class="about-chip">Based in Bangalore</span>
+        <span class="about-chip">LoRA Training</span>
+        <span class="about-chip">n8n</span>
         <span class="about-chip">Open to KL, Malaysia</span>
       </div>
     </div>
+
   </div>
 </section>
 
